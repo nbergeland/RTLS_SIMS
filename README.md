@@ -36,6 +36,8 @@ fig = px.line(df_positions, x='X', y='Y', color='Asset',
 fig.update_layout(width=900, height=600)
 fig.show()
 
+![Plotly Visualization: Simulated RTLS Position Data](SimulatedPositionData.png)
+
 # Example 2
 # KMeans Clustering of RTLS Data with Plotly
 import numpy as np
