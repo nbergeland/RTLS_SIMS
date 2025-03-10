@@ -237,5 +237,5 @@ fig = px.scatter(df_patients, x='X', y='Y', color='Anomaly_Label',
 
 fig.update_layout(width=900, height=600)
 fig.show()
-![Plotly Visualization: Hospital Sim w ML Element](HospitalEx.png)
+![Plotly Visualization: Hospital Sim w ML Element](HospitalExML.png)
 
