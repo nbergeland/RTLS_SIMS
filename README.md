@@ -74,6 +74,8 @@ fig.add_scatter(x=centroids[:, 0], y=centroids[:, 1],
 fig.update_layout(width=900, height=600)
 fig.show()
 
+![Plotly Visualization: Simulated RTLS Position Data](SimulatedClustering.png)
+
 # Example 3
 # Python RTLS Hospital Simulation (with Boundaries and Realistic Movement)
 import numpy as np
@@ -159,3 +161,4 @@ fig = px.scatter(df_rtls, x='X', y='Y', color='Role',
 
 fig.update_layout(width=900, height=600)
 fig.show()
+![Plotly Visualization: Hospital Sim](HospitalSim.png)
