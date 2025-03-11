@@ -2,6 +2,7 @@
 RTLS Simulations
 # Example 1: Simulated RTLS Position Data
 This code simulates location data of multiple assets moving randomly within a defined space:
+
 #Simulated RTLS Position Data with Plotly
 import numpy as np
 import pandas as pd
@@ -82,7 +83,9 @@ fig.show()
 	•	Hospital management wants to understand:
 	•	Employee workflow patterns (e.g., nurses/doctors).
 	•	Patient movement patterns for safety and service optimization.
+
 # Python RTLS Hospital Simulation (with Boundaries and Realistic Movement)
+
 import numpy as np
 import pandas as pd  # <-- Previously missing import
 import plotly.express as px
