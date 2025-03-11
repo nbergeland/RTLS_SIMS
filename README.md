@@ -77,6 +77,11 @@ fig.show()
 ![Plotly Visualization: Simulated RTLS Position Data](SimulatedClustering.png)
 
 # Example 3
+# Scenario:
+	•	Employees and patients wear badges tracked via RTLS.
+	•	Hospital management wants to understand:
+	•	Employee workflow patterns (e.g., nurses/doctors).
+	•	Patient movement patterns for safety and service optimization.
 # Python RTLS Hospital Simulation (with Boundaries and Realistic Movement)
 import numpy as np
 import pandas as pd  # <-- Previously missing import
@@ -163,7 +168,32 @@ fig.update_layout(width=900, height=600)
 fig.show()
 ![Plotly Visualization: Hospital Sim](HospitalSim.png)
 
+# Potential Real-World Applications from This Simulation:
+	•	Workflow Efficiency:
+	•	Identify bottlenecks or inefficient paths used by medical staff.
+	•	Optimize staffing based on area density over time.
+	•	Patient Safety and Care:
+	•	Quickly locate wandering or lost patients (e.g., elderly, dementia patients).
+	•	Alert staff if a patient enters a restricted area.
+	•	Contact Tracing and Infection Control:
+	•	Track potential exposure pathways during an outbreak.
+
 # Example 4
+A practical ML approach is to detect anomalies in patient movements, alerting staff if a patient deviates significantly from their usual pattern. For instance, if a patient begins to wander unexpectedly (potentially indicating confusion, distress, or risk of elopement), your model would highlight it proactively.
+
+# ML Integration Plan:
+
+1. Generate Simulated RTLS Data (use your current setup)
+	•	Generate normal patient movements (restricted near rooms).
+	•	Introduce an “anomalous” patient who randomly leaves the permitted zone.
+
+2. Feature Engineering
+	•	Compute features like distance traveled per timestep, total displacement from room, or velocity.
+	•	Label data as normal or anomalous.
+
+2. Train an Anomaly Detection Model
+	•	Use Isolation Forest (unsupervised anomaly detection) to detect unusual patient movements.
+
 # Hospital Example with Machine Learning Integration
 import numpy as np
 import pandas as pd
@@ -238,4 +268,9 @@ fig = px.scatter(df_patients, x='X', y='Y', color='Anomaly_Label',
 fig.update_layout(width=900, height=600)
 fig.show()
 ![Plotly Visualization: Hospital Sim w ML Element](HospitalExML.png)
+
+# What This Code Demonstrates Clearly:
+	•	Realistic patient movements (confined near rooms).
+	•	Anomaly detection using Isolation Forest (unsupervised ML to identify patients with unusual movements).
+	•	Interactive visualization highlighting anomalous patient movements effectively.
 
