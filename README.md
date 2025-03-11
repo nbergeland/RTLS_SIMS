@@ -4,19 +4,23 @@ RTLS Simulations
 This code simulates location data of multiple assets moving randomly within a defined space:
 
 #Simulated RTLS Position Data with Plotly
+
 import numpy as np
 import pandas as pd
 import plotly.express as px
 
 #Simulation parameters
+
 np.random.seed(42)
 num_assets = 10
 num_timesteps = 100
 
 #Generate random walk data for assets
+
 positions = np.cumsum(np.random.randn(num_timesteps, num_assets, 2), axis=0)
 
 #Create DataFrame for Plotly
+
 data = []
 for asset in range(num_assets):
     df_asset = pd.DataFrame({
@@ -30,6 +34,7 @@ for asset in range(num_assets):
 df_positions = pd.concat(data)
 
 #Plot asset movements
+
 fig = px.line(df_positions, x='X', y='Y', color='Asset',
               title='Simulated RTLS Asset Movements',
               labels={'X': 'X Coordinate', 'Y': 'Y Coordinate'})
@@ -41,6 +46,7 @@ fig.show()
 
 # Example 2
 # KMeans Clustering of RTLS Data with Plotly
+
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -91,12 +97,14 @@ import pandas as pd  # <-- Previously missing import
 import plotly.express as px
 
 #Simulation parameters
+
 np.random.seed(42)
 num_employees = 5
 num_patients = 10
 num_timesteps = 50
 
 #Employee movement (larger random walk within hospital)
+
 def simulate_employee_movement():
     positions = np.zeros((num_timesteps, num_employees, 2))
     positions[0] = np.random.uniform(20, 80, size=(num_employees, 2))
@@ -109,6 +117,7 @@ def simulate_employee_movement():
     return positions
 
 #Patient movement (restricted near room)
+
 def simulate_patient_movement():
     positions = np.zeros((num_timesteps, num_patients, 2))
     patient_rooms = np.random.uniform(30, 70, size=(num_patients, 2))
@@ -121,14 +130,17 @@ def simulate_patient_movement():
     return positions
 
 #Define parameters explicitly
+
 num_timesteps = 100
 employee_positions = simulate_employee_movement()
 patient_positions = simulate_patient_movement()
 
 #Import pandas explicitly
+
 import pandas as pd  
 
 #Convert data into DataFrame
+
 def positions_to_df(positions, role):
     data = []
     num_entities = positions.shape[1]
@@ -144,15 +156,18 @@ def positions_to_df(positions, role):
     return pd.concat(data)
 
 #Parameters explicitly defined
+
 num_timesteps = 100
 num_employees = 5
 num_patients = 10
 
 #Simulate
+
 employee_positions = simulate_employee_movement()
 patient_positions = simulate_patient_movement()
 
 #Combine into one dataframe
+
 import pandas as pd  # Explicitly ensuring this is imported
 df_employees = positions_to_df(employee_positions, 'Employee')
 df_patients = positions_to_df(patient_positions, 'Patient')
