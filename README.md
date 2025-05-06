@@ -265,92 +265,92 @@ This code simulates location data of multiple assets moving randomly within a de
 # Example 4
 A practical ML approach is to detect anomalies in patient movements, alerting staff if a patient deviates significantly from their usual pattern. For instance, if a patient begins to wander unexpectedly (potentially indicating confusion, distress, or risk of elopement), your model would highlight it proactively.
 	
-	# ML Integration Plan:
-	
-	1. Generate Simulated RTLS Data (use your current setup)
-		•	Generate normal patient movements (restricted near rooms).
-		•	Introduce an “anomalous” patient who randomly leaves the permitted zone.
-	
-	2. Feature Engineering
-		•	Compute features like distance traveled per timestep, total displacement from room, or velocity.
-		•	Label data as normal or anomalous.
-	
-	2. Train an Anomaly Detection Model
-		•	Use Isolation Forest (unsupervised anomaly detection) to detect unusual patient movements.
-	
-	# Hospital Example with Machine Learning Integration
-	import numpy as np
-	import pandas as pd
-	import plotly.express as px
-	from sklearn.ensemble import IsolationForest
-	
-	# Set random seed
-	np.random.seed(42)
-	
-	# Simulation parameters
-	num_patients = 20
-	num_timesteps = 100
-	anomalous_patient_idx = 0  # First patient is anomalous
-	
-	# Simulate patient movements (normal and anomalous)
-	def simulate_patient_movement(num_patients, num_timesteps, anomalous_patient=None):
-	    patient_rooms = np.random.uniform(20, 80, size=(num_patients, 2))
-	    positions = np.zeros((num_timesteps, num_patients, 2))
-	
-	    for t in range(num_timesteps):
-	        movement = np.random.randn(num_patients, 2) * 0.5
-	        positions[t] = patient_rooms + movement
-	        positions[t,:,0] = np.clip(positions[t,:,0], patient_rooms[:,0]-3, patient_rooms[:,0]+3)
-	        positions[t, :,1] = np.clip(positions[t,:,1], patient_rooms[:,1]-3, patient_rooms[:,1]+3)
-	
-	    # Inject anomaly: patient moves linearly away from room
-	    if anomalous_patient is not None:
-	        anomaly_path = np.linspace([0, 0], [40, 40], num_timesteps)
-	        positions[:, anomalous_patient] = patient_rooms[anomalous_patient] + anomaly_path
-	
-	    return positions, patient_rooms
-	
-	# Generate data
-	positions, patient_rooms = simulate_patient_movement(num_patients, num_timesteps, anomalous_patient=anomalous_patient)
-	
-	# Convert positions to DataFrame
-	data = []
-	for patient in range(num_patients):
-	    for t in range(num_timesteps):
-	        data.append({
-	            'PatientID': f'Patient_{patient+1}',
-	            'X': positions[t, patient, 0],
-	            'Y': positions[t, patient, 1],
-	            'Time': t
-	        })
-	
-	df_patients = pd.DataFrame(data)
-	
-	# Feature Engineering: Calculate movement speed per patient
-	df_patients.sort_values(['PatientID', 'Time'], inplace=True)
-	df_patients['Prev_X'] = df_patients.groupby('PatientID')['X'].shift(1)
-	df_patients['Prev_Y'] = df_patients.groupby('PatientID')['Y'].shift(1)
-	df_patients['Distance'] = np.sqrt((df_patients['X'] - df_patients['Prev_X'])**2 +
-	                                  (df_patients['Y'] - df_patients['Prev_Y'])**2).fillna(0)
-	
-	# Isolation Forest to detect anomalies
-	from sklearn.ensemble import IsolationForest
-	
-	features = df_patients[['X', 'Y', 'Distance']].fillna(0)
-	iso_forest = IsolationForest(contamination=0.05, random_state=42)
-	df_patients['Anomaly'] = iso_forest.fit_predict(features)
-	df_patients['Anomaly_Label'] = df_patients['Anomaly'].apply(lambda x: 'Anomaly' if x==-1 else 'Normal')
-	
-	# Plot interactive RTLS data with anomalies highlighted
-	import plotly.express as px
-	fig = px.scatter(df_patients, x='X', y='Y', color='Anomaly_Label',
-	                 animation_frame='Time', animation_group='PatientID',
-	                 hover_data=['PatientID'],
-	                 title='Hospital RTLS Simulation with Anomaly Detection',
-	                 labels={'X':'X Coordinate','Y':'Y Coordinate'})
-	
-	fig.update_layout(width=900, height=600)
-	fig.show()
+# ML Integration Plan:
+
+1. Generate Simulated RTLS Data (use your current setup)
+	•	Generate normal patient movements (restricted near rooms).
+	•	Introduce an “anomalous” patient who randomly leaves the permitted zone.
+
+2. Feature Engineering
+	•	Compute features like distance traveled per timestep, total displacement from room, or velocity.
+	•	Label data as normal or anomalous.
+
+2. Train an Anomaly Detection Model
+	•	Use Isolation Forest (unsupervised anomaly detection) to detect unusual patient movements.
+
+		# Hospital Example with Machine Learning Integration
+		import numpy as np
+		import pandas as pd
+		import plotly.express as px
+		from sklearn.ensemble import IsolationForest
+		
+		# Set random seed
+		np.random.seed(42)
+		
+		# Simulation parameters
+		num_patients = 20
+		num_timesteps = 100
+		anomalous_patient_idx = 0  # First patient is anomalous
+		
+		# Simulate patient movements (normal and anomalous)
+		def simulate_patient_movement(num_patients, num_timesteps, anomalous_patient=None):
+		    patient_rooms = np.random.uniform(20, 80, size=(num_patients, 2))
+		    positions = np.zeros((num_timesteps, num_patients, 2))
+		
+		    for t in range(num_timesteps):
+		        movement = np.random.randn(num_patients, 2) * 0.5
+		        positions[t] = patient_rooms + movement
+		        positions[t,:,0] = np.clip(positions[t,:,0], patient_rooms[:,0]-3, patient_rooms[:,0]+3)
+		        positions[t, :,1] = np.clip(positions[t,:,1], patient_rooms[:,1]-3, patient_rooms[:,1]+3)
+		
+		    # Inject anomaly: patient moves linearly away from room
+		    if anomalous_patient is not None:
+		        anomaly_path = np.linspace([0, 0], [40, 40], num_timesteps)
+		        positions[:, anomalous_patient] = patient_rooms[anomalous_patient] + anomaly_path
+		
+		    return positions, patient_rooms
+		
+		# Generate data
+		positions, patient_rooms = simulate_patient_movement(num_patients, num_timesteps, anomalous_patient=anomalous_patient)
+		
+		# Convert positions to DataFrame
+		data = []
+		for patient in range(num_patients):
+		    for t in range(num_timesteps):
+		        data.append({
+		            'PatientID': f'Patient_{patient+1}',
+		            'X': positions[t, patient, 0],
+		            'Y': positions[t, patient, 1],
+		            'Time': t
+		        })
+		
+		df_patients = pd.DataFrame(data)
+		
+		# Feature Engineering: Calculate movement speed per patient
+		df_patients.sort_values(['PatientID', 'Time'], inplace=True)
+		df_patients['Prev_X'] = df_patients.groupby('PatientID')['X'].shift(1)
+		df_patients['Prev_Y'] = df_patients.groupby('PatientID')['Y'].shift(1)
+		df_patients['Distance'] = np.sqrt((df_patients['X'] - df_patients['Prev_X'])**2 +
+		                                  (df_patients['Y'] - df_patients['Prev_Y'])**2).fillna(0)
+		
+		# Isolation Forest to detect anomalies
+		from sklearn.ensemble import IsolationForest
+		
+		features = df_patients[['X', 'Y', 'Distance']].fillna(0)
+		iso_forest = IsolationForest(contamination=0.05, random_state=42)
+		df_patients['Anomaly'] = iso_forest.fit_predict(features)
+		df_patients['Anomaly_Label'] = df_patients['Anomaly'].apply(lambda x: 'Anomaly' if x==-1 else 'Normal')
+		
+		# Plot interactive RTLS data with anomalies highlighted
+		import plotly.express as px
+		fig = px.scatter(df_patients, x='X', y='Y', color='Anomaly_Label',
+		                 animation_frame='Time', animation_group='PatientID',
+		                 hover_data=['PatientID'],
+		                 title='Hospital RTLS Simulation with Anomaly Detection',
+		                 labels={'X':'X Coordinate','Y':'Y Coordinate'})
+		
+		fig.update_layout(width=900, height=600)
+		fig.show()
 ![Plotly Visualization: Hospital Sim w ML Element](HospitalExML.png)
 	
 # What This Code Demonstrates Clearly:
