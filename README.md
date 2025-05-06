@@ -1,5 +1,71 @@
-# RTLS_SIMS
-RTLS Simulations
+# RTLS_SIMS Overview
+This document provides a comprehensive introduction to the RTLS_SIMS repository, which serves as a toolkit for simulating Real-Time Location Systems (RTLS) in hospital environments and analyzing the generated data. RTLS_SIMS enables users to generate realistic movement data for hospital staff, patients, and assets, then apply various analytical techniques to extract insights from this data.
+
+## Purpose and Scope
+The RTLS_SIMS repository serves several key purposes:
+
+1. To simulate realistic RTLS position data using random walk algorithms and hospital-specific constraints
+2. To demonstrate analytical techniques for identifying patterns in spatial positioning data
+3. To visualize movement patterns, clusters, and anomalies using Plotly
+4. To provide a framework for integrating machine learning for anomaly detection in hospital RTLS data
+
+This overview provides a high-level understanding of the system components and their relationships. For detailed explanations of specific components, refer to their respective wiki pages.
+
+## System Architecture
+High-Level System Organization
+The RTLS_SIMS system is organized into four functional layers that work together to generate, process, analyze, and visualize RTLS data.
+! [Screenshot](SA.png)
+
+## Data Flow Architecture
+The following diagram illustrates how data flows through the RTLS_SIMS system, from simulation parameters to visualized insights.
+! [Screenshot](DFA.png)
+
+## Data Analysis Components
+The analysis components extract insights from the simulated RTLS data:
+
+Component	Description	Details
+KMeans Clustering	Identifies patterns and clusters in spatial positioning data	For more details, see KMeans Clustering
+Anomaly Detection	Uses machine learning to identify unusual movement patterns	For more details, see Anomaly Detection
+Feature Engineering	Transforms raw position data into features suitable for analysis	Used to prepare data for clustering and anomaly detection
+Sources: "Hospital Example with Machine Learning Integration-.ipynb"
+
+## Component Interaction Model
+The following class diagram illustrates the conceptual components of the system and how they interact:
+! [Screenshot](CIM.png)
+
+## Repository Structure
+The RTLS_SIMS repository is primarily organized as a collection of Jupyter notebooks, each focusing on a specific aspect of the RTLS simulation and analysis:
+! [Screenshot](RS.png)
+
+Key Technological Features
+The RTLS_SIMS system leverages several technological approaches to deliver its functionality:
+
+1. Simulation Techniques
+- Random walk algorithms for generating movement data
+- Hospital-specific constraints to ensure realistic movement patterns
+- Parametric control over movement characteristics
+
+2. Analysis Approaches
+- KMeans clustering for identifying spatial patterns
+- Machine learning integration for anomaly detection
+- Feature engineering for enhancing raw position data
+
+
+3. Visualization Capabilities
+- Interactive Plotly visualizations for exploring data
+- Animation capabilities for visualizing movement over time
+- Color-coded cluster and anomaly visualization
+
+System Design Principles
+The RTLS_SIMS system exhibits several key design principles:
+
+1. Modular Design: The system separates data generation, processing, analysis, and visualization into distinct components.
+2. Visualization-Centric: Plotly visualizations are a central feature, enabling interactive exploration of the simulated data.
+3. Machine Learning Integration: The system incorporates machine learning techniques for both clustering and anomaly detection.
+4. Simulation Foundation: The core relies on simulation techniques (particularly random walks) to generate realistic RTLS data.
+5. Hospital Context Modeling: Hospital-specific constraints and models make the simulations more realistic for healthcare applications.
+
+# Code Notebooks
 # Example 1: Simulated RTLS Position Data
 This code simulates location data of multiple assets moving randomly within a defined space:
 
