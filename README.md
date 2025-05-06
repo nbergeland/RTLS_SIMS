@@ -18,7 +18,7 @@ The RTLS_SIMS system is organized into four functional layers that work together
 
 ## Data Flow Architecture
 The following diagram illustrates how data flows through the RTLS_SIMS system, from simulation parameters to visualized insights.
-! [Screenshot](DFA.png)
+![Screenshot](DFA.png)
 
 ## Data Analysis Components
 The analysis components extract insights from the simulated RTLS data:
@@ -31,11 +31,11 @@ Sources: "Hospital Example with Machine Learning Integration-.ipynb"
 
 ## Component Interaction Model
 The following class diagram illustrates the conceptual components of the system and how they interact:
-! [Screenshot](CIM.png)
+![Screenshot](CIM.png)
 
 ## Repository Structure
 The RTLS_SIMS repository is primarily organized as a collection of Jupyter notebooks, each focusing on a specific aspect of the RTLS simulation and analysis:
-! [Screenshot](RS.png)
+![Screenshot](RS.png)
 
 Key Technological Features
 The RTLS_SIMS system leverages several technological approaches to deliver its functionality:
