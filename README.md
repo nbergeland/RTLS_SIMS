@@ -14,7 +14,7 @@ This overview provides a high-level understanding of the system components and t
 ## System Architecture
 High-Level System Organization
 The RTLS_SIMS system is organized into four functional layers that work together to generate, process, analyze, and visualize RTLS data.
-! [Screenshot](SA.png)
+![Screenshot](SA.png)
 
 ## Data Flow Architecture
 The following diagram illustrates how data flows through the RTLS_SIMS system, from simulation parameters to visualized insights.
