@@ -355,6 +355,8 @@ A practical ML approach is to detect anomalies in patient movements, alerting st
 	
 # What This Code Demonstrates Clearly:
 •	Realistic patient movements (confined near rooms).
+
 •	Anomaly detection using Isolation Forest (unsupervised ML to identify patients with unusual movements).
+
 •	Interactive visualization highlighting anomalous patient movements effectively.
 
